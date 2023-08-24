@@ -1,58 +1,88 @@
-const AWS = require("aws-sdk");
+// const AWS = require("aws-sdk");
 
-/*
-  A linha abaixo é necessária para remover mensagem do pacote da AWS sugerindo a 
-  migração da versão do pacote 'aws-sdk' para v3.
-*/
-require('aws-sdk/lib/maintenance_mode_message').suppress = true;
+// /*
+//   A linha abaixo é necessária para remover mensagem do pacote da AWS sugerindo a
+//   migração da versão do pacote 'aws-sdk' para v3.
+// */
+// require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 
-const {
-  AWS_ACCESS_KEY,
-  AWS_SECRET_ACCESS_KEY,
-  AWS_REGION,
-  AWS_API_VERSION,
-} = require("../config");
+// const {
+//   AWS_ACCESS_KEY,
+//   AWS_SECRET_ACCESS_KEY,
+//   AWS_REGION,
+//   AWS_API_VERSION,
+// } = require("../config");
 
-class EmailService {
-  constructor() {
-    this.service = new AWS.SES({
-      region: AWS_REGION,
-      accessKeyId: AWS_ACCESS_KEY,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY,
-      apiVersion: AWS_API_VERSION,
-    });
-  }
+// class EmailService {
+//   constructor() {
+//     this.service = new AWS.SES({
+//       region: AWS_REGION,
+//       accessKeyId: AWS_ACCESS_KEY,
+//       secretAccessKey: AWS_SECRET_ACCESS_KEY,
+//       apiVersion: AWS_API_VERSION,
+//     });
+//   }
 
-  async send({ from, to, subject, text }) {
-    const params = {
-      Source: from,
-      Destination: {
-        ToAddresses: [to],
-      },
-      Message: {
-        Body: {
-          Text: {
-            Charset: "UTF-8",
-            Data: text,
-          },
-        },
-        Subject: {
-          Charset: "UTF-8",
-          Data: subject,
-        },
-      },
-    };
+//   async send({ from, to, subject, text }) {
+//     const params = {
+//       Source: from,
+//       Destination: {
+//         ToAddresses: [to],
+//       },
+//       Message: {
+//         Body: {
+//           Text: {
+//             Charset: "UTF-8",
+//             Data: text,
+//           },
+//         },
+//         Subject: {
+//           Charset: "UTF-8",
+//           Data: subject,
+//         },
+//       },
+//     };
 
-    await this.service
-      .sendEmail(params)
-      .promise()
-      .then(() => {
-        console.log("E-mail enviado com sucesso!");
-      })
-      .catch(() => {
-        console.error("Falha no envio de e-mail!");
-      });
-  }
+//     await this.service
+//       .sendEmail(params)
+//       .promise()
+//       .then(() => {
+//         console.log("E-mail enviado com sucesso!");
+//       })
+//       .catch(() => {
+//         console.error("Falha no envio de e-mail!");
+//       });
+//   }
+// }
+
+// module.exports = new EmailService()
+
+"use strict"
+const nodemailer = require("nodemailer")
+
+const transporter = nodemailer.createTransport({
+	host: "smtp.gmail.com",
+	port: 465,
+	secure: true,
+	auth: {
+		user: "diegodevpt@gmail.com",
+		pass: "sikflpnzujugcrsh",
+	},
+})
+
+// async..await is not allowed in global scope, must use a wrapper
+async function main() {
+	// send mail with defined transport object
+	const info = await transporter.sendMail({
+		from: '"Fred Foo 👻" <diegodevpt@gmail.com>', // sender address
+		to: "diegodevpt@gmail.com", // list of receivers
+		subject: "Hello ✔", // Subject line
+		text: "Hello world?", // plain text body
+		html: "<b>Hello world?</b>", // html body
+	})
+
+	console.log("Message sent: %s", info.messageId)
+	// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
 
-module.exports = new EmailService();
+main().catch(console.error)
