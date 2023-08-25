@@ -1,3 +1,33 @@
+"use strict"
+const nodemailer = require("nodemailer")
+
+const transporter = nodemailer.createTransport({
+	host: "smtp.gmail.com",
+	port: 465,
+	secure: true,
+	auth: {
+		user: "diegodevpt@gmail.com",
+		pass: "sikflpnzujugcrsh",
+	},
+})
+
+// async..await is not allowed in global scope, must use a wrapper
+async function main() {
+	// send mail with defined transport object
+	const info = await transporter.sendMail({
+		from: '"Fred Foo 👻" <diegodevpt@gmail.com>', // sender address
+		to: ["diegodevpt@gmail.com", "priscillafumaux@gmail.com"], // list of receivers
+		subject: "Hello ✔", // Subject line
+		// text: "Hello world?", // plain text body
+		html: "<b><mark>Hello world Nodejs?</mark></b>", // html body
+	})
+
+	console.log("Message sent: %s", info.messageId)
+	// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+}
+
+main().catch(console.error)
+
 // const AWS = require("aws-sdk");
 
 // /*
@@ -56,33 +86,3 @@
 // }
 
 // module.exports = new EmailService()
-
-"use strict"
-const nodemailer = require("nodemailer")
-
-const transporter = nodemailer.createTransport({
-	host: "smtp.gmail.com",
-	port: 465,
-	secure: true,
-	auth: {
-		user: "diegodevpt@gmail.com",
-		pass: "sikflpnzujugcrsh",
-	},
-})
-
-// async..await is not allowed in global scope, must use a wrapper
-async function main() {
-	// send mail with defined transport object
-	const info = await transporter.sendMail({
-		from: '"Fred Foo 👻" <diegodevpt@gmail.com>', // sender address
-		to: ["diegodevpt@gmail.com", "priscillafumaux@gmail.com"], // list of receivers
-		subject: "Hello ✔", // Subject line
-		// text: "Hello world?", // plain text body
-		html: "<b><mark>Hello world Nodejs?</mark></b>", // html body
-	})
-
-	console.log("Message sent: %s", info.messageId)
-	// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-}
-
-main().catch(console.error)
