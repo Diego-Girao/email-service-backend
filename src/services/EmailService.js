@@ -1,13 +1,21 @@
 "use strict"
 const nodemailer = require("nodemailer")
 
+const {
+	NODEMAILER_HOST,
+	NODEMAILER_PORT,
+	NODEMAILER_SECURE,
+	NODEMAILER_USER,
+	NODEMAILER_PASSWORD,
+} = require("../config")
+
 const transporter = nodemailer.createTransport({
-	host: "smtp.gmail.com",
-	port: 465,
-	secure: true,
+	host: NODEMAILER_HOST,
+	port: NODEMAILER_PORT,
+	secure: NODEMAILER_SECURE,
 	auth: {
-		user: "diegodevpt@gmail.com",
-		pass: "sikflpnzujugcrsh",
+		user: NODEMAILER_USER,
+		pass: NODEMAILER_PASSWORD,
 	},
 })
 
