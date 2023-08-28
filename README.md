@@ -7,15 +7,19 @@
 # Serviço de Disparo de Emails 📨️
 
 ![Javascript](https://img.shields.io/badge/javascript-yellow?style=for-the-badge&logo=javascript&logoColor=white)
-![Nodemailer](https://img.shields.io/badge/nodemailer-007FFF?style=for-the-badge&logo=node.js&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-3GA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Nodemailer](https://img.shields.io/badge/nodemailer-007FFF?style=for-the-badge&logo=node.js&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 
 Este projeto é um clone do repositório [redis-dba](https://github.com/guivahl/redis-dba), com algumas alterações nas funcionalidades para a fixação do meu aprendizado com o Node.js e a utilização do Nodemailer.
 
 ## Tecnologias Utilizadas ⚙️
 
+- [Redis](https://redis.io/) - Banco de dados NoSQL para armazenar as mensagens em filas
+
 - [Node.js](https://nodejs.org/) - Ambiente de execução JavaScript do lado do servidor.
   - [Nodemailer](https://nodemailer.com/) - Módulo para aplicativos Node.js que permite o envio de e-mail com facilidade, sendo a solução utilizada pela maioria dos usuários do Node.js
+  - [Bull](https://github.com/OptimalBits/bull) - Biblioteca para manipulação de filas de mensagens utilizando Redis
 
 ## Como Executar 🧑‍💻️
 
